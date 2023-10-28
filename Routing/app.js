@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 // const bodyParser = require('body-parser')
-const router = require("./routes/router")
+const router = require("./routes/router");
 const PORT = 3000;
 
 // body parser
@@ -14,12 +14,12 @@ const PORT = 3000;
 //     next()
 //   })
 
-  // GET method route
+// GET method route
 // app.get('/secret', (req, res) => {
 //     res.send(req.secret)
 //   })
-  
-  // POST method route
+
+// POST method route
 //   app.post('/', (req, res) => {
 //     res.send('POST request to the homepage')
 //   })
@@ -100,18 +100,17 @@ const PORT = 3000;
 
 // app.use("/", [func1, func2, func3]);
 
-
 // A combination of independent functions and arrays of functions can handle a route. For example:
 // const func1 =  (req, res, next) => {
 //     console.log('func1')
 //     next()
 //   }
-  
+
 //   const func2 =  (req, res, next) => {
 //     console.log('func2')
 //     next()
 //   }
-  
+
 //   app.get('/', [func1, func2], (req, res, next) => {
 //     console.log('the response will be sent by the next function ...')
 //     next()
@@ -132,8 +131,38 @@ const PORT = 3000;
 //     res.send('Update the book')
 //   })
 
-app.use('/router', router)
+// app.use('/router', router)
 
-app.listen(PORT, ()=> {
-    console.log(`Server is running on ${PORT}`);
-})
+// own Practice
+
+// app.use("/router",(req, res) => {
+//     console.log("myDate ===> ", new Date())
+//     res.send(new Date());
+// })
+
+// (get, all ) as same
+// app.all("/product/*", (req, res) => { //as a slug after prodcut/ some content
+//     res.send("hollo products");
+// })
+// app.get("/product", (req, res) => {
+//     res.send("hollo products");
+// })
+
+app.use("/home/:id", (req, res, next) => {
+  if (req.params.id === "12345") {
+    next();
+  } else {
+    res.send("Data not matched");
+  }
+});
+
+app.get("/home", (req, res) => {
+    res.send("i am from Second middlerWare");
+});
+
+// app.get("/home",(req, res) => {
+//     res.send("i am from second middleware");
+// })
+app.listen(PORT, () => {
+  console.log(`Server is running on ${PORT}`);
+});
